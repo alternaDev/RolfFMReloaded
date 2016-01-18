@@ -1,8 +1,9 @@
 import subprocess
+import os
 
 class Player(object):
 
-    def __init__(self, path):
+    def __init__(self):
         self.DEVNULL = open(os.devnull, 'wb')
         self.current_playback_process = None
 

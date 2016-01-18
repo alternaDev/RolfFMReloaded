@@ -1,5 +1,5 @@
-import DefaultMode
-import Player
+from lib.pm_default import DefaultMode
+from lib.player import Player
 import time
 
 #PRIORITIES
@@ -9,7 +9,7 @@ import time
 # >=2: never played as long as there are lower priorities, otherwise same procedure as 1
 
 #The different playing modes
-modes = {};
+modes = [];
 
 default_a = DefaultMode("Christian C", "/media/network/wolfgang/USB2-0-FlashDisk-00/Chris")
 default_b = DefaultMode("JHB", "/media/network/wolfgang/USB2-0-FlashDisk-00/Jean")
@@ -27,10 +27,10 @@ while True:
     modes.sort(key=lambda x: x.priority, reverse=False)
 
     lowest_priority = modes[0].priority;
-    play_list = {}; #enter all playing modes
+    play_list = []; #enter all playing modes
 
     for mode in modes:
-        if mode.priority == lowest_priority
+        if mode.priority == lowest_priority:
             play_list.append(mode);
 
     for mode in play_list:
@@ -39,7 +39,7 @@ while True:
             for mode in modes:
                 mode.invalidate()
             modes.sort(key=lambda x: x.priority, reverse=False)
-            if(modes[0].priority = -1):
+            if(modes[0].priority == -1):
                 new_loop = True
                 break;
             if(modes[0].priority < lowest_priority):
