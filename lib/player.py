@@ -1,5 +1,8 @@
 import subprocess
 import os
+import logging
+
+logger = logging.getLogger(__name__)
 
 class Player(object):
 
@@ -8,6 +11,7 @@ class Player(object):
         self.current_playback_process = None
 
     def play(self, path):
+        logger.info("Playing " + path + ".")
         self.current_playback_process = subprocess.Popen(["play", path], stdout=self.DEVNULL, stderr=self.DEVNULL)
 
     def is_playing(self):
