@@ -1,5 +1,6 @@
 import DefaultMode
 import Player
+import time
 
 #PRIORITIES
 #  -1: interrupts current playing mode and clears the current playlist
@@ -10,8 +11,8 @@ import Player
 #The different playing modes
 modes = {};
 
-default_a = DefaultMode("Christian C", "/network/pedab")
-default_b = DefaultMode("JHB", "/network/pedaa")
+default_a = DefaultMode("Christian C", "/media/network/wolfgang/USB2-0-FlashDisk-00/Chris")
+default_b = DefaultMode("JHB", "/media/network/wolfgang/USB2-0-FlashDisk-00/Jean")
 
 modes.append(default_a);
 modes.append(default_b);
@@ -43,6 +44,7 @@ while True:
                 break;
             if(modes[0].priority < lowest_priority):
                 new_loop = True
+            time.sleep(0.05)
         if new_loop:
             break;
         player.play(mode.next())
