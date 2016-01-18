@@ -1,5 +1,8 @@
 from props import Properties
 from content_provider import ContentProvider
+import os
+import random
+import time
 
 class RandomFileProvider(ContentProvider):
 
@@ -21,7 +24,7 @@ class RandomFileProvider(ContentProvider):
         picked = random.randrange(len(l))
         pick = l[picked]
 
-        while is_old_song(pick):
+        while self.is_old_song(pick):
             picked = random.randrange(len(l))
             pick = l[picked]
 
@@ -29,20 +32,20 @@ class RandomFileProvider(ContentProvider):
 
     def is_old_song(self, songname):
 
-        if is_repeat_allowed == True:
+        if self.is_repeat_allowed == True:
             return False
 
-        if songname in history:
-            last_played = time.time() - history[songname]
+        if songname in self.history:
+            last_played = time.time() - self.history[songname]
 
             if(last_played < Properties.SONG_REPEAT_TIME):
                 return True
             else:
-                history[songname] = time.time();
+                self.history[songname] = time.time();
                 return False
         else:
-            history[songname] = time.time()
+            self.history[songname] = time.time()
             return False
 
     def next(self):
-        return random_choice(recursive_files(self.source))
+        return self.random_choice(self.recursive_files(self.source))

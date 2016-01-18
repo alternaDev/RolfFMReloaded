@@ -11,8 +11,8 @@ import time
 #The different playing modes
 modes = [];
 
-default_a = DefaultMode("Christian C", "/media/network/wolfgang/USB2-0-FlashDisk-00/Chris")
-default_b = DefaultMode("JHB", "/media/network/wolfgang/USB2-0-FlashDisk-00/Jean")
+default_a = DefaultMode("Christian C", "/Users/jhbruhn/Music/Amazon Music")
+default_b = DefaultMode("JHB", "/Users/jhbruhn/Music/iTunes")
 
 modes.append(default_a);
 modes.append(default_b);
@@ -35,7 +35,7 @@ while True:
 
     for mode in play_list:
         new_loop = False;
-        while(player.is_playing):
+        while(player.is_playing()):
             for mode in modes:
                 mode.invalidate()
             modes.sort(key=lambda x: x.priority, reverse=False)

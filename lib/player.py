@@ -7,10 +7,12 @@ class Player(object):
         self.DEVNULL = open(os.devnull, 'wb')
         self.current_playback_process = None
 
-    def play(self):
-        self.current_playback_process = subprocess.Popen(["play", path], stdout=DEVNULL, stderr=DEVNULL)
+    def play(self, path):
+        self.current_playback_process = subprocess.Popen(["play", path], stdout=self.DEVNULL, stderr=self.DEVNULL)
 
     def is_playing(self):
+        if not self.current_playback_process:
+            return False
         if self.current_playback_process.poll() == None:
             return True
         else:
