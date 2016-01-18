@@ -7,6 +7,8 @@ class DefaultMode(PlayingMode):
         self.name = "DefaultMode " + str(source)
         self.content_provider = RandomFileProvider(False, source)
         self.priority = 1
-        
+        self.time_counter = 0
+
     def next(self):
-        self.content_provider.next()
+        next_song = self.content_provider.next()        
+        return next_song
