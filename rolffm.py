@@ -9,6 +9,8 @@ from lib.pm_default import DefaultMode
 from lib.player import Player
 import time
 
+logger.info("RolfFM is starting.")
+
 #PRIORITIES
 #  -1: interrupts current playing mode and clears the current playlist
 #   0: clears the current playlist after the current played element has finished and then plays
@@ -26,6 +28,8 @@ modes.append(default_b);
 
 #the player
 player = Player()
+
+logger.info("Entering Main-Loop")
 
 #main loop
 while True:

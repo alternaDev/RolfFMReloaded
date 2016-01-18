@@ -1,8 +1,14 @@
 from repeat_pattern import RepeatPattern
 from content_provider import ContentProvider
+
+import logging
+
+logger = logging.getLogger(__name__)
+
 class PlayingMode(object):
 
     def __init__(self, name, source):
+        logger.info("Created mode " + name + " (Source: " + source + ").")
         self.repeat_pattern = RepeatPattern()
         self.name = name
         self.source = source
@@ -42,6 +48,7 @@ class PlayingMode(object):
         self._name = val
 
     def next(self):
+        logger.info("Selecting Next from " + self.name + ".")
         return None
 
     def invalidate(self):
