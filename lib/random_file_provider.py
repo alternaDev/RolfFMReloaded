@@ -1,6 +1,7 @@
 from props import Properties
+from content_provider import ContentProvider
 
-class RandomFileProvider(object):
+class RandomFileProvider(ContentProvider):
 
     def __init__(self, is_repeat_allowed, source):
         self.is_repeat_allowed = is_repeat_allowed
@@ -11,7 +12,7 @@ class RandomFileProvider(object):
     def recursive_files(self, dir):
         for path, _, fnames in os.walk(dir, True):
             for fname in fnames:
-                if not fname.startswith(".") and fname.endswith(".mp3") or fname.endswith(".wav") or fname.endswith(".m4a"): #optimize me
+                if not fname.startswith(".") and fname.endswith(".mp3") or fname.endswith(".wav") or fname.endswith(".m4a"): #optimize me with properties
                     yield os.path.join(path, fname)
 
     def random_choice(self, iterable):
@@ -43,5 +44,5 @@ class RandomFileProvider(object):
             history[songname] = time.time()
             return False
 
-    def nextSong(self):
+    def next(self):
         return random_choice(recursive_files(self.source))
