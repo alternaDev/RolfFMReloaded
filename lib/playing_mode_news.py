@@ -1,13 +1,13 @@
 from playing_mode import PlayingMode
-from rp_default import DefaultRepeat
-from random_file_provider import RandomFileProvider
+from repeat_pattern_hourly import HourlyRepeat
+from news_file_provider import NewsFileProvider
 
 class NewsMode(PlayingMode):
     def __init__(self, source):
         PlayingMode.__init__(self, "NewsMode", source)
-        self.repeat_pattern = DefaultRepeat()
+        self.repeat_pattern = HourlyRepeat()
         self.name = "NewsMode"
-        self.content_provider = RandomFileProvider(False, source)
+        self.content_provider = NewsFileProvider(source)
         self.priority = 1
         self.time_counter = 0
 
