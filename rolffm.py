@@ -54,7 +54,7 @@ while True:
             modes.sort(key=lambda x: x.priority, reverse=False)
             if modes[0].priority == -1:
                 new_loop = True
-                break;
+                break
             if modes[0].priority < lowest_priority :
                 new_loop = True
             time.sleep(0.05)
@@ -62,4 +62,5 @@ while True:
         if new_loop:
             break
 
-        player.play(mode.next())
+        if mode.repeat_pattern.can_play():
+            player.play(mode.next())
