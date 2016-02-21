@@ -53,3 +53,9 @@ class PlayingMode(object):
 
     def invalidate(self):
         return None
+
+    def on_play(self):
+        return None
+
+    def on_stop(self):
+        return None

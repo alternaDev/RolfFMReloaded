@@ -26,7 +26,7 @@ class Player(object):
 
     def is_playing(self):
         if platform.system() == "Windows":
-            return time.time() - self.last_playback < 60 * 3
+            return time.time() - self.last_playback < 10
         if not self.current_playback_process:
             return False
         if self.current_playback_process.poll() is None:
