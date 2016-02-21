@@ -20,8 +20,8 @@ logger.info("RolfFM is starting.")
 #The different playing modes
 modes = [];
 
-default_a = DefaultMode("Christian C", "/Users/jhbruhn/Music/Amazon Music")
-default_b = DefaultMode("JHB", "/Users/jhbruhn/Music/iTunes")
+default_a = DefaultMode("Christian C", "C:\Users\Jan-Henrik\Music\Massive Attack")
+default_b = DefaultMode("JHB", "C:\Users\Jan-Henrik\Music\The Black Keys")
 
 modes.append(default_a);
 modes.append(default_b);
