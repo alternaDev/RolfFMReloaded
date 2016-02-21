@@ -1,5 +1,5 @@
 from playing_mode import PlayingMode
-from repeat_pattern_hourly import HourlyRepeat
+from rp_hourly import HourlyRepeat
 from news_file_provider import NewsFileProvider
 
 class NewsMode(PlayingMode):
