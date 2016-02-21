@@ -52,7 +52,7 @@ while True:
             for mode in modes:
                 mode.invalidate()
             modes.sort(key=lambda x: x.priority, reverse=False)
-            if modes[0].priority == -1:
+            if modes[0].priority == -1 and modes[0].repeat_pattern.can_play():
                 new_loop = True
                 break
             if modes[0].priority < lowest_priority :
