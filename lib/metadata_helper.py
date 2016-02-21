@@ -1,7 +1,9 @@
 import mutagen
 
+
 class MetadataHelper(object):
-    def get_length(file):
+    @staticmethod
+    def get_length(f):
         element = mutagen.File(f)
         if element:
             return element.length

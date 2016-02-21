@@ -20,8 +20,8 @@ logger.info("RolfFM is starting.")
 # The different playing modes
 modes = []
 
-default_a = DefaultMode("Christian C", "C:\Users\Jan-Henrik\Music\Massive Attack")
-default_b = DefaultMode("JHB", "C:\Users\Jan-Henrik\Music\The Black Keys")
+default_a = DefaultMode("Christian C", "W:\Chris")
+default_b = DefaultMode("JHB", "W:\Chris\Cro - Easy")
 
 modes.append(default_a)
 modes.append(default_b)
@@ -38,24 +38,38 @@ while True:
     modes.sort(key=lambda x: x.priority, reverse=False)
 
     lowest_priority = modes[0].priority
-    play_list = [] # enter all playing modes
+    play_list = []  # enter all playing modes
+    basic_play = []  # default mode list
+    current_mode = None  # the current mode playing sound
 
     for mode in modes:
         if mode.priority == lowest_priority:
             play_list.append(mode)
+        if isinstance(mode, DefaultMode):
+            basic_play.append(mode)
 
     for mode in play_list:
         new_loop = False
 
+        basic_play.sort(key=lambda x: x.playing_time, reverse=False)
+        next_default = basic_play[0]
+        basic_play.sort(key=lambda x: x.priority, reverse=False)
+        temp_lowest_priority = basic_play[0].priority
+        next_default.priority = temp_lowest_priority - 1
+        for bp in basic_play:
+            bp.playing_time -= next_default.playing_time
+            bp.priority += 1
+
         while player.is_playing():
 
-            for mode in modes:
-                mode.invalidate()
+            for m in modes:
+                m.invalidate()
+
             modes.sort(key=lambda x: x.priority, reverse=False)
             if modes[0].priority == -1 and modes[0].repeat_pattern.can_play():
                 new_loop = True
                 break
-            if modes[0].priority < lowest_priority :
+            if modes[0].priority < lowest_priority:
                 new_loop = True
             time.sleep(0.05)
 
@@ -63,4 +77,8 @@ while True:
             break
 
         if mode.repeat_pattern.can_play():
-            player.play(mode.next())
+            if current_mode is not None:
+                current_mode.on_stop()
+            current_mode = mode
+            current_mode.on_play()
+            player.play(current_mode.next())
