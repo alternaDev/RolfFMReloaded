@@ -4,8 +4,14 @@ from lib.player import Player
 import time
 import json
 import importlib
+import argparse
 
 logger.info("RolfFM is starting.")
+
+parser = argparse.ArgumentParser(description="RolfFM Music Playback Service")
+parser.add_argument("-c", "--config", help="Path to config file (default 'default_config.json')")
+
+args = parser.parse_args()
 
 def class_for_name(module_name, class_name):
     # load the module, will raise ImportError if module cannot be loaded
@@ -23,7 +29,11 @@ def class_for_name(module_name, class_name):
 # The different playing modes
 modes = []
 
-with open('default_config.json') as configFile:  # TODO: implement the file path from the command line
+configPath = 'default_config.json'
+if args.config:
+    configPath = args.config
+
+with open(configPath) as configFile:
     config = json.load(configFile)
 
 for mode in config:
