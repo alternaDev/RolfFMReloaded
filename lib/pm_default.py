@@ -1,14 +1,20 @@
 from playing_mode import PlayingMode
 from rp_default import DefaultRepeat
 from random_file_provider import RandomFileProvider
+from props import Properties
 import time
 
+
 class DefaultMode(PlayingMode):
-    def __init__(self, name, source):
+
+    last_speech = Properties.DEFAULT_SPEECH_COUNT
+
+    def __init__(self, name, source,  speech):
         PlayingMode.__init__(self, name, source)
         self.repeat_pattern = DefaultRepeat()
         self.name = "DefaultMode " + str(name)
         self.content_provider = RandomFileProvider(False, source)
+        self.speech_provider = RandomFileProvider(True, speech)
         self.priority = 1
         self.time_counter = 0
         self._playing_time = 0
@@ -16,7 +22,12 @@ class DefaultMode(PlayingMode):
 
     def next(self):
         PlayingMode.next(self)
-        next_song = self.content_provider.next()
+        if DefaultMode.last_speech >= Properties.DEFAULT_SPEECH_COUNT:
+            next_song = self.speech_provider.next()
+            DefaultMode.last_speech = 0
+        else:
+            next_song = self.content_provider.next()
+            DefaultMode.last_speech += 1
         return next_song
 
     def on_play(self):

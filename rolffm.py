@@ -20,8 +20,8 @@ logger.info("RolfFM is starting.")
 # The different playing modes
 modes = []
 
-default_a = DefaultMode("Christian C", "W:\Chris")
-default_b = DefaultMode("JHB", "W:\Chris\Cro - Easy")
+default_a = DefaultMode("Christian C", "W:\Chris", "W:\Speech")
+default_b = DefaultMode("JHB", "W:\Chris\Cro - Easy", "W:\Speech")
 
 modes.append(default_a)
 modes.append(default_b)
