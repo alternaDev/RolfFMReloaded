@@ -8,8 +8,17 @@ logging.config.fileConfig('logging.ini', disable_existing_loggers=False)
 from lib.pm_default import DefaultMode
 from lib.player import Player
 import time
+import json
+import importlib
 
 logger.info("RolfFM is starting.")
+
+def class_for_name(module_name, class_name):
+    # load the module, will raise ImportError if module cannot be loaded
+    m = importlib.import_module(module_name)
+    # get the class, will raise AttributeError if class cannot be found
+    c = getattr(m, class_name)
+    return c
 
 # PRIORITIES
 #  -1: interrupts current playing mode and clears the current playlist
@@ -20,11 +29,13 @@ logger.info("RolfFM is starting.")
 # The different playing modes
 modes = []
 
-default_a = DefaultMode("Christian C", "W:\Chris", "W:\Speech")
-default_b = DefaultMode("JHB", "W:\Chris\Cro - Easy", "W:\Speech")
+with open('default_config.json') as configFile:  # TODO: implement the file path from the command line
+    config = json.load(configFile)
 
-modes.append(default_a)
-modes.append(default_b)
+for mode in config:
+    clazz = class_for_name('lib.pm_' + mode['type'], mode['type'].title() + "Mode")
+    m = clazz(mode)
+    modes.append(m)
 
 # the player
 player = Player()

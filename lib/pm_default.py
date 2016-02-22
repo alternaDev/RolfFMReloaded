@@ -9,12 +9,12 @@ class DefaultMode(PlayingMode):
 
     last_speech = Properties.DEFAULT_SPEECH_COUNT
 
-    def __init__(self, name, source,  speech):
-        PlayingMode.__init__(self, name, source)
+    def __init__(self, data):
+        PlayingMode.__init__(self, data.get('name'), data.get('musicSource'))
         self.repeat_pattern = DefaultRepeat()
-        self.name = "DefaultMode " + str(name)
-        self.content_provider = RandomFileProvider(False, source)
-        self.speech_provider = RandomFileProvider(True, speech)
+        self.name = "DefaultMode " + data.get('name')
+        self.content_provider = RandomFileProvider(False, data.get('musicSource'))
+        self.speech_provider = RandomFileProvider(True, data.get('speechSource'))
         self.priority = 1
         self.time_counter = 0
         self._playing_time = 0

@@ -3,12 +3,13 @@ from rp_hourly import HourlyRepeat
 from news_file_provider import NewsFileProvider
 
 class NewsMode(PlayingMode):
-    def __init__(self, source):
+    def __init__(self, data):
+        source = data.get('source', '')
         PlayingMode.__init__(self, "NewsMode", source)
         self.repeat_pattern = HourlyRepeat()
         self.name = "NewsMode"
         self.content_provider = NewsFileProvider(source)
-        self.priority = 1
+        self.priority = -1
         self.time_counter = 0
 
     def next(self):
