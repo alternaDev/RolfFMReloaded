@@ -33,3 +33,8 @@ class Player(object):
             return True
         else:
             return False
+
+    def stop(self):
+        if not self.current_playback_process:
+            return True
+        self.current_playback_process.kill()

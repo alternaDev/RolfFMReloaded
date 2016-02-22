@@ -89,6 +89,7 @@ while True:
             time.sleep(0.05)
 
         if new_loop:
+            player.stop()
             break
 
         if mode.repeat_pattern.can_play():
