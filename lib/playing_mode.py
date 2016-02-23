@@ -7,11 +7,10 @@ logger = logging.getLogger(__name__)
 
 class PlayingMode(object):
 
-    def __init__(self, name, source):
-        logger.info("Created mode " + name + " (Source: " + source + ").")
+    def __init__(self, name):
+        logger.info("Created mode " + name)
         self.repeat_pattern = RepeatPattern()
         self.name = name
-        self.source = source
         self.priority = 10000
         self.provider = ContentProvider()
 
@@ -24,10 +23,6 @@ class PlayingMode(object):
         return self._priority
 
     @property
-    def source(self):
-        return self._source
-
-    @property
     def name(self):
         return self._name
 
@@ -38,10 +33,6 @@ class PlayingMode(object):
     @priority.setter
     def priority(self, val):
         self._priority = val
-
-    @source.setter
-    def source(self, val):
-        self._source = val
 
     @name.setter
     def name(self, val):

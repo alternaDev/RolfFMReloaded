@@ -5,7 +5,7 @@ from news_file_provider import NewsFileProvider
 class NewsMode(PlayingMode):
     def __init__(self, data):
         source = data.get('source', '')
-        PlayingMode.__init__(self, "NewsMode", source)
+        PlayingMode.__init__(self, "NewsMode")
         self.repeat_pattern = HourlyRepeat()
         self.name = "NewsMode"
         self.content_provider = NewsFileProvider(source)

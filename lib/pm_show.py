@@ -5,7 +5,7 @@ import Queue
 class ShowMode(PlayingMode):
 
     def __init__(self, name, source, rp):
-        PlayingMode.__init__(self, name, source)
+        PlayingMode.__init__(self, name)
         self.repeat_pattern = rp
         self.name = "ShowMode " + str(name)
         self.priority = 1
