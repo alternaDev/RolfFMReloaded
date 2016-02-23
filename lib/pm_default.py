@@ -1,3 +1,5 @@
+import cherrypy
+
 from playing_mode import PlayingMode
 from rp_default import DefaultRepeat
 from random_file_provider import RandomFileProvider
@@ -43,3 +45,12 @@ class DefaultMode(PlayingMode):
     @playing_time.setter
     def playing_time(self, val):
         self._playing_time = val
+
+    def web(self):
+        this = self
+        class DefaultWeb(object):
+            @cherrypy.expose
+            def index(self):
+                return "Hello World! from " + this.name
+
+        return DefaultWeb

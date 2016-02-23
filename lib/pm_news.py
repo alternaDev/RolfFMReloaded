@@ -1,3 +1,5 @@
+import cherrypy
+
 from playing_mode import PlayingMode
 from rp_hourly import HourlyRepeat
 from news_file_provider import NewsFileProvider
@@ -16,3 +18,11 @@ class NewsMode(PlayingMode):
         PlayingMode.next(self)
         next_song = self.content_provider.next()
         return next_song
+
+    def web(self):
+        class NewsWeb(object):
+            @cherrypy.expose
+            def index(self):
+                return "Hello World!"
+
+        return NewsWeb

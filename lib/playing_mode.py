@@ -42,6 +42,9 @@ class PlayingMode(object):
         logger.info("Selecting Next from " + self.name + ".")
         return None
 
+    def web(self):
+        return None
+
     def invalidate(self):
         return None
 

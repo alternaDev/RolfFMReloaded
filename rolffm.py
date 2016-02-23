@@ -1,3 +1,5 @@
+import cherrypy
+
 from logger import logger
 from lib.pm_default import DefaultMode
 from lib.player import Player
@@ -40,6 +42,15 @@ for mode in config:
     clazz = class_for_name('lib.pm_' + mode['type'], mode['type'].title() + "Mode")
     m = clazz(mode)
     modes.append(m)
+
+for mode in modes:
+    clazz = mode.web()
+    if clazz is not None:
+        cherrypy.tree.mount(clazz(), '/modes/' + mode.name)
+
+
+cherrypy.engine.start()
+
 
 # the player
 player = Player()
