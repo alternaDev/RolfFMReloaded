@@ -48,6 +48,20 @@ for mode in modes:
     if clazz is not None:
         cherrypy.tree.mount(clazz(), '/modes/' + mode.name)
 
+class BasicWeb(object):
+    @cherrypy.expose
+    @cherrypy.tools.json_out()
+    def index(self):
+        names = []
+        for mode in modes:
+            names.append(mode.name)
+
+        return {
+            'modes': names,
+            'currentSong': {}
+        }
+
+cherrypy.tree.mount(BasicWeb(), '/info')
 
 cherrypy.engine.start()
 
