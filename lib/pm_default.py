@@ -33,21 +33,16 @@ class DefaultMode(PlayingMode):
         return next_song
 
     def on_play(self):
+        print "onPlay " + self.name
         self.start_time = time.time()
 
     def on_stop(self):
-        self.playing_time += (time.time() - self.start_time)
-
-    @property
-    def playing_time(self):
-        return self._playing_time
-
-    @playing_time.setter
-    def playing_time(self, val):
-        self._playing_time = val
+        print "onStop " + self.name
+        self.priority += (time.time() - self.start_time)
 
     def web(self):
         this = self
+
         class DefaultWeb(object):
             @cherrypy.expose
             def index(self):

@@ -77,31 +77,16 @@ while True:
         mode.invalidate() # give them the chance to update priority
     modes.sort(key=lambda x: x.priority, reverse=False)
 
-    lowest_priority = modes[0].priority
     play_list = []  # enter all playing modes
-    basic_play = []  # default mode list
     current_mode = None  # the current mode playing sound
 
     for mode in modes:
-        if mode.priority == lowest_priority:
-            play_list.append(mode)
-        if isinstance(mode, DefaultMode):
-            basic_play.append(mode)
+        play_list.append(mode)
 
     for mode in play_list:
         new_loop = False
 
-        basic_play.sort(key=lambda x: x.playing_time, reverse=False)
-        next_default = basic_play[0]
-        basic_play.sort(key=lambda x: x.priority, reverse=False)
-        temp_lowest_priority = basic_play[0].priority
-        next_default.priority = temp_lowest_priority - 1
-        for bp in basic_play:
-            bp.playing_time -= next_default.playing_time
-            bp.priority += 1
-
         while player.is_playing():
-
             for m in modes:
                 m.invalidate()
 
@@ -109,11 +94,12 @@ while True:
             if modes[0].priority == -1 and modes[0].repeat_pattern.can_play():
                 new_loop = True
                 break
-            if modes[0].priority < lowest_priority:
-                new_loop = True
+
             time.sleep(0.05)
 
         if new_loop:
+            if current_mode is not None:
+                current_mode.on_stop()
             player.stop()
             break
 
