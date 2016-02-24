@@ -1,3 +1,4 @@
+import random
 import subprocess
 import os
 import logging
@@ -26,7 +27,7 @@ class Player(object):
 
     def is_playing(self):
         if platform.system() == "Windows":
-            return time.time() - self.last_playback < 10
+            return time.time() - self.last_playback < 20 + 10 * random.random()
         if not self.current_playback_process:
             return False
         if self.current_playback_process.poll() is None:

@@ -71,41 +71,47 @@ player = Player()
 
 logger.info("Entering Main-Loop")
 
+current_mode = None
+
 # main loop
 while True:
     for mode in modes:
         mode.invalidate() # give them the chance to update priority
+
     modes.sort(key=lambda x: x.priority, reverse=False)
 
-    play_list = []  # enter all playing modes
-    current_mode = None  # the current mode playing sound
+    if current_mode is not None:
+        current_mode.on_stop()
 
     for mode in modes:
-        play_list.append(mode)
-
-    for mode in play_list:
-        new_loop = False
-
-        while player.is_playing():
-            for m in modes:
-                m.invalidate()
-
-            modes.sort(key=lambda x: x.priority, reverse=False)
-            if modes[0].priority == -1 and modes[0].repeat_pattern.can_play():
-                new_loop = True
-                break
-
-            time.sleep(0.05)
-
-        if new_loop:
-            if current_mode is not None:
-                current_mode.on_stop()
-            player.stop()
+        if mode.repeat_pattern.can_play():
+            current_mode = mode
             break
 
-        if mode.repeat_pattern.can_play():
-            if current_mode is not None:
-                current_mode.on_stop()
-            current_mode = mode
-            current_mode.on_play()
-            player.play(current_mode.next())
+    if current_mode.repeat_pattern.can_play():
+        current_mode.on_play()
+        player.play(current_mode.next())
+
+    new_loop = False
+
+    while player.is_playing():
+        for m in modes:
+            m.invalidate()
+
+        modes.sort(key=lambda x: x.priority, reverse=False)
+
+        for mode in modes:
+            if mode.priority == -1 and mode.repeat_pattern.can_play():
+                new_loop = True
+                break
+        if new_loop:
+            break
+
+        time.sleep(0.05)
+
+    if new_loop:
+        if current_mode is not None:
+            current_mode.on_stop()
+        player.stop()
+        continue
+

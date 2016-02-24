@@ -21,6 +21,7 @@ class DefaultMode(PlayingMode):
         self.time_counter = 0
         self._playing_time = 0
         self.start_time = 0
+        self.is_playing = False
 
     def next(self):
         PlayingMode.next(self)
@@ -33,12 +34,16 @@ class DefaultMode(PlayingMode):
         return next_song
 
     def on_play(self):
-        print "onPlay " + self.name
+        self.is_playing = True
         self.start_time = time.time()
 
     def on_stop(self):
-        print "onStop " + self.name
-        self.priority += (time.time() - self.start_time)
+        self.is_playing = False
+
+    def invalidate(self):
+        if self.is_playing: # TODO: Only Count Music.
+            self.priority += (time.time() - self.start_time)
+            self.start_time = time.time()
 
     def web(self):
         this = self
