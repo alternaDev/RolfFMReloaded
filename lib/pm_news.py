@@ -11,7 +11,7 @@ class NewsMode(PlayingMode):
         self.repeat_pattern = HourlyRepeat()
         self.name = "NewsMode"
         self.content_provider = NewsFileProvider(source)
-        self.priority = -1
+        self.priority = 1
         self.time_counter = 0
 
     def next(self):
