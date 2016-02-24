@@ -6,13 +6,13 @@
   {
     "type": "default",
     "name": "Christian C",
-    "musicSource": "W:\\Chris",
-    "speechSource": "W:\\Speech"
+    "musicSource": "/media/wolfgang/Chris",
+    "speechSource": "/media/wolfgang/Speech"
   },
   {
     "type": "default",
     "name": "JHB",
-    "musicSource": "W:\\Chris\\Cro - Easy",
-    "speechSource": "W:\\Speech"
+    "musicSource": "/media/wolfgang/JHB",
+    "speechSource": "/media/wolfgang/Speech"
   }
 ]
