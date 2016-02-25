@@ -18,7 +18,7 @@ class Player(object):
     def play(self, path):
         logger.info("Playing " + path + ".")
         try:
-            self.current_playback_process = subprocess.Popen(["play", path], stdout=self.DEVNULL, stderr=self.DEVNULL)
+            self.current_playback_process = subprocess.Popen(["omxplayer", path], stdout=self.DEVNULL, stderr=self.DEVNULL)
         except Exception as e:
             logger.error("Could not play Audio File " + path + ".")
 
